@@ -9,8 +9,8 @@ module Yojson = Yojson.Basic
 
 open Pjson
 open Pdeserialize
-open GUI_deserialize
-open GUI_tools
+open Deserialize
+open Tools
 
 }}
 

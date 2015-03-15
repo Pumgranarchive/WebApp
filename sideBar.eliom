@@ -9,8 +9,8 @@ module Yojson = Yojson.Basic
 
 open Pjson
 open Pdeserialize
-open GUI_deserialize
-open GUI_tools
+open Deserialize
+open Tools
 
 }}
 
@@ -72,7 +72,7 @@ let action atype =
   in
   let fill = D.div ~a:[a_class["side_button_link"]] [] in
   let link = match atype with
-    | Ahome    -> a ~service:GUI_services.home [fill] ()
+    | Ahome    -> a ~service:Services.home [fill] ()
     | Aplus ac -> AddContent.switch_onclick ac fill; fill
     | _        -> fill
   in

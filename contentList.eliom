@@ -3,8 +3,8 @@ open Eliom_content.Html5
 open Eliom_content.Html5.F
 
 open Pdeserialize
-open GUI_deserialize
-open GUI_tools
+open Deserialize
+open Tools
 
 let get filter research =
   try_lwt Http.research_contents research

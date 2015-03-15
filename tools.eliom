@@ -1,7 +1,7 @@
 
 (*
   GUI Tools
-  This module help GUI_html to make the html.
+  This module help Html to make the html.
 *)
 
 {shared{
@@ -126,7 +126,7 @@ struct
       | (uri, subject)::t  ->
         let fill = pcdata subject in
         let li = if active_click
-          then li [a ~service:%GUI_services.contents [div [fill]] (Some subject)]
+          then li [a ~service:%Services.contents [div [fill]] (Some subject)]
           else li [fill]
         in
         aux (li::lis) t
@@ -155,8 +155,8 @@ struct
   (** Build a links list html *)
   let build_list links =
     let aux html (link_id, id, title, summary) =
-      let str_id = GUI_deserialize.string_of_id id in
-      let linked = a ~service:%GUI_services.content_detail
+      let str_id = Deserialize.string_of_id id in
+      let linked = a ~service:%Services.content_detail
         [div ~a:[a_class["content_current_linked_main_list_elem"]]
             [h3 [pcdata title]; p [span ~a:[a_class["content_current_linked_main_list_elem_url"]] [pcdata str_id] ; br (); pcdata summary]]]
         (Ptype.uri_encode str_id)
@@ -175,9 +175,9 @@ struct
   (** Build a content list html *)
   let build_list contents =
     let aux html (id, title, summary) =
-      let str_id = GUI_deserialize.string_of_id id in
+      let str_id = Deserialize.string_of_id id in
       let content =
-        D.a ~service:%GUI_services.content_detail
+        D.a ~service:%Services.content_detail
           [div ~a:[a_class ["content_main_list_elem"]]
               [h3 [pcdata title]; p [span ~a:[a_class["content_current_linked_main_list_elem_url"]] [pcdata str_id]; br (); pcdata summary]]] (Ptype.uri_encode str_id)
       in

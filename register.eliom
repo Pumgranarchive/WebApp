@@ -33,50 +33,50 @@ let launcher func get_process post_process get_params post_params =
   with e ->
     let err_msg = Printexc.to_string e in
     let () = print_endline err_msg in
-    GUI_html.error_404 () ()
+    Html.error_404 () ()
 
 let _ =
   Pumgrana.App.register
-    ~service:GUI_services.home
-    (launcher GUI_html.home identity identity)
+    ~service:Services.home
+    (launcher Html.home identity identity)
 
 let _ =
   Pumgrana.App.register
-    ~service:GUI_services.s404
-    (launcher GUI_html.error_404 identity identity)
+    ~service:Services.s404
+    (launcher Html.error_404 identity identity)
 
 let _ =
   Pumgrana.App.register
-    ~service:GUI_services.contents
-    (launcher GUI_html.contents (tuple_of None) identity)
+    ~service:Services.contents
+    (launcher Html.contents (tuple_of None) identity)
 
 (* let _ = *)
 (*   Pumgrana.App.register *)
-(*     ~service:GUI_services.contents_two *)
-(*     (launcher GUI_html.contents identity identity) *)
+(*     ~service:Services.contents_two *)
+(*     (launcher Html.contents identity identity) *)
 
 let _ =
   Pumgrana.App.register
-    ~service:GUI_services.content_detail
-    (launcher GUI_html.content_detail uri_of_id identity)
+    ~service:Services.content_detail
+    (launcher Html.content_detail uri_of_id identity)
 
 (* let _ = *)
 (*   Pumgrana.App.register *)
-(*     ~service:GUI_services.content_detail_by_platform *)
-(*     (launcher GUI_html.content_detail uri_of_tuple identity) *)
+(*     ~service:Services.content_detail_by_platform *)
+(*     (launcher Html.content_detail uri_of_tuple identity) *)
 
 (* let _ = *)
 (*   Pumgrana.App.register *)
-(*     ~service:GUI_services.content_update_service *)
+(*     ~service:Services.content_update_service *)
 (*     (fun content_uri () -> *)
 (*       let uri = Ptype.uri_decode content_uri in *)
 (*       lwt data = GUI_core.get_detail_content uri in *)
-(*       Lwt.return (GUI_html.content_update data)) *)
+(*       Lwt.return (Html.content_update data)) *)
 
 (* let _ = *)
 (*   Pumgrana.App.register *)
-(*     ~service:GUI_services.content_insert_service *)
-(*     (fun () () -> Lwt.return (GUI_html.content_insert ())) *)
+(*     ~service:Services.content_insert_service *)
+(*     (fun () () -> Lwt.return (Html.content_insert ())) *)
 
 (* let map f = function *)
 (*   | Some x -> Some (f x) *)
@@ -84,16 +84,16 @@ let _ =
 
 (* let _ = *)
 (*   Pumgrana.App.register *)
-(*     ~service:GUI_services.link_insert_service *)
+(*     ~service:Services.link_insert_service *)
 (*     (fun (origin_uri, target_uri) () -> *)
 (*       let o_uri = map Ptype.uri_decode origin_uri in *)
 (*       let t_uri = map Ptype.uri_decode target_uri in *)
-(*       Lwt.return (GUI_html.link_insert o_uri t_uri)) *)
+(*       Lwt.return (Html.link_insert o_uri t_uri)) *)
 
 (* let _ = *)
 (*   Pumgrana.App.register *)
-(*     ~service:GUI_services.link_update_service *)
+(*     ~service:Services.link_update_service *)
 (*     (fun link_uri () -> *)
 (*       let uri = Ptype.uri_decode link_uri in *)
 (*       lwt link_detail = GUI_core.get_link_detail uri in *)
-(*       Lwt.return (GUI_html.link_update link_detail)) *)
+(*       Lwt.return (Html.link_update link_detail)) *)

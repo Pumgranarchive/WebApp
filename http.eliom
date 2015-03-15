@@ -1,6 +1,6 @@
 {shared{
 
-open GUI_deserialize
+open Deserialize
 
 }}
 
@@ -38,7 +38,7 @@ let links_from_research content_uri research =
 module Service =
 struct
 
-  open GUI_tools
+  open Tools
 
   let prefix =
     "http://localhost:8081"

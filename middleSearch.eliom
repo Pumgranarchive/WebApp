@@ -9,8 +9,8 @@ module Yojson = Yojson.Basic
 
 open Pjson
 open Pdeserialize
-open GUI_deserialize
-open GUI_tools
+open Deserialize
+open Tools
 
 }}
 
@@ -29,7 +29,7 @@ let redirect input =
   let dom_input = To_dom.of_input input in
   let go () =
     let research = get_research input in
-    Eliom_client.change_page ~service:%GUI_services.contents (Some research) ()
+    Eliom_client.change_page ~service:%Services.contents (Some research) ()
   in
   Lwt.async (fun () ->
     Lwt_js_events.keyups dom_input

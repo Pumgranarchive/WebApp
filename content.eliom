@@ -4,7 +4,7 @@ open Eliom_content.Html5.F
 
 open Utils
 open Pdeserialize
-open GUI_deserialize
+open Deserialize
 
 
 let make lwt_elements =
@@ -15,13 +15,13 @@ let make lwt_elements =
 let get_data content_uri =
   lwt content = Http.get_content_detail content_uri in
   let ret = match content with
-    | GUI_deserialize.Internal (c_id, c_title, c_summary, c_body) ->
+    | Deserialize.Internal (c_id, c_title, c_summary, c_body) ->
       c_title,
       Lwt.return (div [h3 [pcdata c_title];
                        p [pcdata c_summary];
                        p [pcdata c_body]])
-    | GUI_deserialize.External (c_id, c_title, c_summary, c_html_body) ->
-      let revise_html = GUI_tools.redirect_link c_html_body in
+    | Deserialize.External (c_id, c_title, c_summary, c_html_body) ->
+      let revise_html = Tools.redirect_link c_html_body in
       c_title,
       Lwt.return (div ~a:[a_class["content_current"]]
                     [div [h3 [pcdata c_title];

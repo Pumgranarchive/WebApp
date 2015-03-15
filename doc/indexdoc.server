@@ -1,9 +1,6 @@
 {1 Pumgrana server side documentation}
 
 {!modules:
-        API_conf
-        API_core
-        API_tools
         Pcash
         Nosql_store
         Rdf_store

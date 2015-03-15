@@ -14,7 +14,7 @@ module Yojson = Yojson.Basic
 
 open Pjson
 open Pdeserialize
-open GUI_deserialize
+open Deserialize
 
 (** Get all name of checked dom_inputs and return them in a list. *)
 let get_checked_inputs dom_inputs =
@@ -56,24 +56,24 @@ let map f = function
 
 (* let go_insert_link id = *)
 (*   let str_id = *)
-(*     map (fun x -> Ptype.uri_encode (GUI_deserialize.string_of_id x)) id *)
+(*     map (fun x -> Ptype.uri_encode (Deserialize.string_of_id x)) id *)
 (*   in *)
 (*   Eliom_client.change_page *)
-(*     ~service:%GUI_services.link_insert_service (str_id, None) () *)
+(*     ~service:%Services.link_insert_service (str_id, None) () *)
 
 (* let go_update_content id = *)
-(*   let str_id = Ptype.uri_encode (GUI_deserialize.string_of_id id) in *)
+(*   let str_id = Ptype.uri_encode (Deserialize.string_of_id id) in *)
 (*   Eliom_client.change_page *)
-(*     ~service:%GUI_services.content_update_service str_id () *)
+(*     ~service:%Services.content_update_service str_id () *)
 
 (* let go_insert_content () = *)
 (*   Eliom_client.change_page *)
-(*     ~service:%GUI_services.content_insert_service () () *)
+(*     ~service:%Services.content_insert_service () () *)
 
 (* let cancel_update_content id = *)
-(*   let str_id = Ptype.uri_encode (GUI_deserialize.string_of_id id) in *)
+(*   let str_id = Ptype.uri_encode (Deserialize.string_of_id id) in *)
 (*   Eliom_client.change_page *)
-(*     ~service:%GUI_services.content_detail str_id () *)
+(*     ~service:%Services.content_detail str_id () *)
 
 let rec get_uri_of name = function
   | []                -> raise Not_found
@@ -92,8 +92,8 @@ let rec build_tags_list all_tags nl not_found_list = function
     build_tags_list all_tags new_list nf_list t
 
 (* let save_update_content id content_v tags remove_links new_tags = *)
-(*   let uri = Ptype.uri_encode (GUI_deserialize.uri_of_id id) in *)
-(*   let str_id = Ptype.uri_encode (GUI_deserialize.string_of_id id) in *)
+(*   let uri = Ptype.uri_encode (Deserialize.uri_of_id id) in *)
+(*   let str_id = Ptype.uri_encode (Deserialize.string_of_id id) in *)
 (*   lwt res = Eliom_client.call_service ~service:%API_services.get_tags_by_type *)
 (*     %API_conf.content_tag () *)
 (*   in *)
@@ -113,7 +113,7 @@ let rec build_tags_list all_tags nl not_found_list = function
 (*   lwt _ = Eliom_client.call_service ~service:%API_services.delete_links *)
 (*       () remove_links *)
 (*   in *)
-(*   Eliom_client.change_page ~service:%GUI_services.content_detail str_id () *)
+(*   Eliom_client.change_page ~service:%Services.content_detail str_id () *)
 
 (* let save_insert_content title summary body new_tags = *)
 (*   lwt res = Eliom_client.call_service ~service:%API_services.get_tags_by_type *)
@@ -131,7 +131,7 @@ let rec build_tags_list all_tags nl not_found_list = function
 (*       (%API_conf.content_tag, (Some str_uri, not_found_list)) *)
 (*   in *)
 (*   Eliom_client.change_page *)
-(*     ~service:%GUI_services.content_detail id () *)
+(*     ~service:%Services.content_detail id () *)
 
 let submit_tag_content dom_tags_html tag input_list =
   let input = D.raw_input ~input_type:`Checkbox ~name:tag () in
@@ -218,12 +218,12 @@ let bind_add_tag_content submit_tag div_tags_html add_tag_input input_list =
 (* (\** [bind_delete_content button_elt content_id] bind the button *)
 (*     on click event to remove the content with the given content_id. *\) *)
 (* let bind_delete_content button_elt content_id = *)
-(*   let uri = GUI_deserialize.uri_of_id content_id in *)
+(*   let uri = Deserialize.uri_of_id content_id in *)
 (*   let action () = *)
 (*     lwt _ = Eliom_client.call_service *)
 (*       ~service:%API_services.delete_contents () [uri] in *)
 (*     Eliom_client.change_page *)
-(*       ~service:%GUI_services.home_service (None, None) () *)
+(*       ~service:%Services.home_service (None, None) () *)
 (*   in *)
 (*   bind_button button_elt action *)
 
