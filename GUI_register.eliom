@@ -11,10 +11,10 @@ let tuple_of f s = Lwt.return (f, s)
 
 (** [uri_of_id id] translate id to uri *)
 let uri_of_id encoded_id =
-  let id = Rdf_store.uri_decode encoded_id in
+  let id = Ptype.uri_decode encoded_id in
   let uri = if Nosql_store.is_nosql_id id
     then Rdf_store.uri_of_content_id (Nosql_store.id_of_string id)
-    else Rdf_store.uri_of_string id
+    else Ptype.uri_of_string id
   in
   Lwt.return uri
 
@@ -69,7 +69,7 @@ let _ =
 (*   Pumgrana.App.register *)
 (*     ~service:GUI_services.content_update_service *)
 (*     (fun content_uri () -> *)
-(*       let uri = Rdf_store.uri_decode content_uri in *)
+(*       let uri = Ptype.uri_decode content_uri in *)
 (*       lwt data = GUI_core.get_detail_content uri in *)
 (*       Lwt.return (GUI_html.content_update data)) *)
 
@@ -86,14 +86,14 @@ let _ =
 (*   Pumgrana.App.register *)
 (*     ~service:GUI_services.link_insert_service *)
 (*     (fun (origin_uri, target_uri) () -> *)
-(*       let o_uri = map Rdf_store.uri_decode origin_uri in *)
-(*       let t_uri = map Rdf_store.uri_decode target_uri in *)
+(*       let o_uri = map Ptype.uri_decode origin_uri in *)
+(*       let t_uri = map Ptype.uri_decode target_uri in *)
 (*       Lwt.return (GUI_html.link_insert o_uri t_uri)) *)
 
 (* let _ = *)
 (*   Pumgrana.App.register *)
 (*     ~service:GUI_services.link_update_service *)
 (*     (fun link_uri () -> *)
-(*       let uri = Rdf_store.uri_decode link_uri in *)
+(*       let uri = Ptype.uri_decode link_uri in *)
 (*       lwt link_detail = GUI_core.get_link_detail uri in *)
 (*       Lwt.return (GUI_html.link_update link_detail)) *)

@@ -41,10 +41,11 @@ struct
   open GUI_tools
 
   let prefix =
-    let url = Js.to_string Dom_html.document##_URL in
-    let http_length = Str.search_forward "://" url 0 + 3 in
-    try String.sub url 0 (Str.search_forward "/" url http_length)
-    with Not_found -> url
+    "http://localhost:8081"
+    (* let url = Js.to_string Dom_html.document##_URL in *)
+    (* let http_length = Str.search_forward "://" url 0 + 3 in *)
+    (* try String.sub url 0 (Str.search_forward "/" url http_length) *)
+    (* with Not_found -> url *)
 
   let research_contents =
     Eliom_service.external_service ~prefix
@@ -84,8 +85,8 @@ let tags_from_research research =
   Lwt.return (get_service_return get_tag_list yojson)
 
 let links_from_research content_uri research =
-  let str_uri = Rdf_store.string_of_uri content_uri in
-  let encoded_uri = Rdf_store.uri_encode str_uri in
+  let str_uri = Ptype.string_of_uri content_uri in
+  let encoded_uri = Ptype.uri_encode str_uri in
   lwt json = Eliom_client.call_service
     ~service:Service.get_links_from_research (encoded_uri, research) ()
   in

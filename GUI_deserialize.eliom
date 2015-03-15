@@ -12,19 +12,19 @@ open Pjson
 
 type id =
 | Id of Nosql_store.id
-| Uri of Rdf_store.uri
+| Uri of Ptype.uri
 
 type content =
 | Internal of (id * string * string * string)
 | External of (id * string * string * string)
 
 let uri_of_id = function
-  | Id id   -> Rdf_store.(string_of_uri (uri_of_content_id id))
-  | Uri uri -> Rdf_store.string_of_uri uri
+  | Id id   -> Ptype.string_of_uri (Rdf_store.uri_of_content_id id)
+  | Uri uri -> Ptype.string_of_uri uri
 
 let string_of_id = function
   | Id id   -> Nosql_store.string_of_id id
-  | Uri uri -> Rdf_store.string_of_uri uri
+  | Uri uri -> Ptype.string_of_uri uri
 
 let id_of_uri uri =
   try

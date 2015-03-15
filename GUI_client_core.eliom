@@ -56,13 +56,13 @@ let map f = function
 
 (* let go_insert_link id = *)
 (*   let str_id = *)
-(*     map (fun x -> Rdf_store.uri_encode (GUI_deserialize.string_of_id x)) id *)
+(*     map (fun x -> Ptype.uri_encode (GUI_deserialize.string_of_id x)) id *)
 (*   in *)
 (*   Eliom_client.change_page *)
 (*     ~service:%GUI_services.link_insert_service (str_id, None) () *)
 
 (* let go_update_content id = *)
-(*   let str_id = Rdf_store.uri_encode (GUI_deserialize.string_of_id id) in *)
+(*   let str_id = Ptype.uri_encode (GUI_deserialize.string_of_id id) in *)
 (*   Eliom_client.change_page *)
 (*     ~service:%GUI_services.content_update_service str_id () *)
 
@@ -71,7 +71,7 @@ let map f = function
 (*     ~service:%GUI_services.content_insert_service () () *)
 
 (* let cancel_update_content id = *)
-(*   let str_id = Rdf_store.uri_encode (GUI_deserialize.string_of_id id) in *)
+(*   let str_id = Ptype.uri_encode (GUI_deserialize.string_of_id id) in *)
 (*   Eliom_client.change_page *)
 (*     ~service:%GUI_services.content_detail str_id () *)
 
@@ -79,7 +79,7 @@ let rec get_uri_of name = function
   | []                -> raise Not_found
   | (uri, sub)::t     ->
     if String.compare sub name == 0
-    then Rdf_store.string_of_uri uri
+    then Ptype.string_of_uri uri
     else get_uri_of name t
 
 let rec build_tags_list all_tags nl not_found_list = function
@@ -92,8 +92,8 @@ let rec build_tags_list all_tags nl not_found_list = function
     build_tags_list all_tags new_list nf_list t
 
 (* let save_update_content id content_v tags remove_links new_tags = *)
-(*   let uri = Rdf_store.uri_encode (GUI_deserialize.uri_of_id id) in *)
-(*   let str_id = Rdf_store.uri_encode (GUI_deserialize.string_of_id id) in *)
+(*   let uri = Ptype.uri_encode (GUI_deserialize.uri_of_id id) in *)
+(*   let str_id = Ptype.uri_encode (GUI_deserialize.string_of_id id) in *)
 (*   lwt res = Eliom_client.call_service ~service:%API_services.get_tags_by_type *)
 (*     %API_conf.content_tag () *)
 (*   in *)
@@ -125,8 +125,8 @@ let rec build_tags_list all_tags nl not_found_list = function
 (*       (title, (summary, (body, Some tags_list))) *)
 (*   in *)
 (*   let uri = get_content_uri_return (Yojson.from_string res) in *)
-(*   let str_uri = Rdf_store.string_of_uri uri in *)
-(*   let id = Nosql_store.string_of_id Rdf_store.(content_id_of_uri uri) in *)
+(*   let str_uri = Ptype.string_of_uri uri in *)
+(*   let id = Nosql_store.string_of_id Ptype.(content_id_of_uri uri) in *)
 (*   lwt _ = Eliom_client.call_service ~service:%API_services.insert_tags () *)
 (*       (%API_conf.content_tag, (Some str_uri, not_found_list)) *)
 (*   in *)

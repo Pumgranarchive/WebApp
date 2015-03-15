@@ -11,7 +11,7 @@ let (>>=) = Lwt.bind
 
 type mode =
 [`Contents of (Html5_types.div Eliom_content.Html5.D.elt Lwt.t * string option * string)
-| `Detail of Rdf_store.uri]
+| `Detail of Ptype.uri]
 
 type 'a t = ('a * Html5_types.div Eliom_content.Html5.D.elt)
 
